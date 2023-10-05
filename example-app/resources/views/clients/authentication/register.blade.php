@@ -19,14 +19,25 @@
             <div class="col-lg-7 mb-5">
                 <div class="contact-form  p-100">
                     <div id="success"></div>
-                    @if(session()->has('success'))
-                     <div class="alert alert-success">{{session('success')}}</div>
-                     @endif
-                    <form method ="POST">
-                    @csrf
+                    <form method="POST" action="{{route('client.registerStore')}}">
+                      @csrf
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div class="control-group p-1">
                           <label  for="username">Username</label>
                             <input type="text" class="form-control" placeholder="Username" name="user_name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group p-1">
+                          <label  for="email">Email</label>
+                            <input type="email" class="form-control" placeholder="example@gmail.com" name="user_email" />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group p-1">
@@ -34,11 +45,15 @@
                             <input type="password" class="form-control" placeholder="********" name="user_password"/>
                             <p class="help-block text-danger"></p>
                         </div>
-                        <a class="font-weight-bold p-1" href="{{route('client.register')}}">Not registered ?</a>
+                        <div class="control-group p-1">
+                           <label  for="password">Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="********" name="user_confirm"/>
+                            <p class="help-block text-danger"></p>
+                        </div>
                         <div class="p-1">
                             <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton"> Sign in</button>
-                            <a class="font-weight-bold" href="">Forgot Password?</a>
                         </div>
+                        <a class="font-weight-bold p-1" href="{{route('client.login')}}">Already registered ?</a>
                     </form>
                 </div>
             </div>
